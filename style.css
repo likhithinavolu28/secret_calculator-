@@ -1,0 +1,205 @@
+:root {
+  --bg-1: #08111f;
+  --bg-2: #14263f;
+  --panel: rgba(7, 14, 26, 0.82);
+  --panel-border: rgba(163, 193, 255, 0.18);
+  --text-main: #f6f7fb;
+  --text-soft: #9fb4d1;
+  --key: rgba(255, 255, 255, 0.08);
+  --key-hover: rgba(255, 255, 255, 0.14);
+  --key-op: #1d3c63;
+  --key-accent: #e7b94f;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top, rgba(83, 146, 255, 0.22), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(231, 185, 79, 0.18), transparent 28%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.app-shell {
+  width: min(100%, 430px);
+}
+
+.calculator-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--panel-border);
+  border-radius: 28px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.card-glow {
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 180deg, transparent, rgba(83, 146, 255, 0.2), transparent, rgba(231, 185, 79, 0.2), transparent);
+  animation: rotateGlow 14s linear infinite;
+  pointer-events: none;
+}
+
+.display-panel,
+.keypad {
+  position: relative;
+  z-index: 1;
+}
+
+.display-panel {
+  padding: 28px 24px 18px;
+}
+
+.eyebrow,
+.hint,
+.history {
+  margin: 0;
+}
+
+.eyebrow {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+}
+
+.history {
+  min-height: 1.6rem;
+  margin-top: 18px;
+  text-align: right;
+  color: #c2d3eb;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.display {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text-main);
+  text-align: right;
+  font-size: clamp(2.6rem, 7vw, 4rem);
+  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+  padding: 10px 0 0;
+}
+
+.hint {
+  margin-top: 10px;
+  color: var(--text-soft);
+  font-size: 0.94rem;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 18px 24px 24px;
+}
+
+.key {
+  border: 0;
+  border-radius: 18px;
+  padding: 18px 12px;
+  color: var(--text-main);
+  background: var(--key);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+  min-height: 64px;
+}
+
+.key:hover {
+  transform: translateY(-2px);
+  background: var(--key-hover);
+}
+
+.key:active {
+  transform: translateY(1px);
+}
+
+.key-soft {
+  color: #cfe0ff;
+}
+
+.key-op {
+  background: linear-gradient(180deg, #295489, var(--key-op));
+}
+
+.key-accent {
+  background: linear-gradient(180deg, #f5cb69, var(--key-accent));
+  color: #2f2101;
+}
+
+.key-wide {
+  grid-column: span 2;
+}
+
+.key-tall {
+  grid-row: span 2;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%) translateY(24px);
+  background: rgba(8, 17, 31, 0.94);
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 12px 18px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@keyframes rotateGlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 14px;
+  }
+
+  .display-panel {
+    padding: 24px 18px 14px;
+  }
+
+  .keypad {
+    gap: 10px;
+    padding: 16px 18px 18px;
+  }
+
+  .key {
+    min-height: 58px;
+    padding: 14px 10px;
+  }
+}
